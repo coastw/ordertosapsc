@@ -37,7 +37,7 @@ public class Controler {
             String inFile = exportFile;
             //最后上传到上品网站的文件
             int lastSlash = sapFile.lastIndexOf(File.separator);
-            String outFileName = sapFile.substring(lastSlash + 2, sapFile.length() - 5) + "_merged.xlsx";
+            String outFileName = sapFile.substring(lastSlash + 1, sapFile.length() - 4) + "_merged.xlsx";
             String outFile = mergedFilePath + File.separator + outFileName;
             //执行
             writeProductsToExcel(products, inFile, outFile, resultMSG);
@@ -48,8 +48,8 @@ public class Controler {
         }
     }
 
-    public static void writeProductsToExcel(ArrayList<Product> products, String inFile, String outFile,ResultMSG resultMSG) throws Exception {
-        
+    public static void writeProductsToExcel(ArrayList<Product> products, String inFile, String outFile, ResultMSG resultMSG) throws Exception {
+
         int sum = 0;
         InputStream is = null;
         OutputStream os = null;
@@ -127,6 +127,11 @@ public class Controler {
                 //21 now price
 //                cell = currentRow.getCell(21);
 //                String persent = DiscountUtil.getDiscount(info.getSn());
+                //23
+                Cell calculateCell = sheet.getRow(row).createCell(23, Cell.CELL_TYPE_FORMULA);
+                String formula = "INT(U" + (row+1) + "*W" + (row+1) + ")";
+                calculateCell.setCellFormula(formula);
+
                 //下一行
                 sum += product.getAmount();
                 row++;
@@ -139,7 +144,7 @@ public class Controler {
             resultMSG.setWriteMessage("写入完成,共:" + sum + "件");
         } catch (Exception e) {
             e.printStackTrace();
-            resultMSG.setWriteMessage("写入出错,共:" + sum + "件,错误:"+e.toString());
+            resultMSG.setWriteMessage("写入出错,共:" + sum + "件,错误:" + e.toString());
         } finally {
             is.close();
             os.close();
@@ -211,7 +216,7 @@ public class Controler {
             System.out.println("readProductsFromMyExcel出现异常:行=" + row + "列=目前无法确定" + e.toString());
             products = null;
             e.printStackTrace();
-            resultMSG.setReadMessage("读取出错,共:" + sum + "件!错误:"+e.toString());
+            resultMSG.setReadMessage("读取出错,共:" + sum + "件!错误:" + e.toString());
         } finally {
             is.close();
             System.out.println("读取总数:" + sum);

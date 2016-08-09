@@ -102,6 +102,7 @@ public class ProductToSAPUtil {
                 break;
             case "K":
             case "N":
+            case "E":
                 secondType = "女装裤子";
                 break;
             case "Q":
@@ -134,6 +135,7 @@ public class ProductToSAPUtil {
                 thirdType = "休闲裤";
                 break;
             case "K":
+            case "E":
                 thirdType = "长裤";
                 break;
             case "Q":
@@ -204,7 +206,7 @@ public class ProductToSAPUtil {
         String sizeCode = this.product.getSizeCode();
         //下身
         String typeCode = this.product.getFullSn().substring(7, 8).toUpperCase();
-        if (typeCode.equals("K") || typeCode.equals("Q")) {
+        if (typeCode.equals("K") || typeCode.equals("Q") || typeCode.equals("E")) {
             switch (sizeCode) {
                 case "1":
                     internationalSize = "155/64A";
