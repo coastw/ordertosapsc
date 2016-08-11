@@ -92,7 +92,7 @@ public class Controler {
                 unitCell.setCellValue(sapUtil.getUnit());
                 //颜色信息
                 Cell colorCell = sheet.getRow(row).getCell(3);
-                colorCell.setCellValue(product.getColor());
+                colorCell.setCellValue(product.getColorCode());
                 //色系
                 Cell colorTypeCell = sheet.getRow(row).getCell(4);
                 colorTypeCell.setCellValue(sapUtil.getColorType());
